@@ -1,0 +1,144 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="SmsSite_dbModelStoreContainer" CdmEntityContainer="SmsSite_dbEntities">
+    <EntitySetMapping Name="friend_list">
+      <EntityTypeMapping TypeName="SmsSite_dbModel.friend_list">
+        <MappingFragment StoreEntitySet="friend_list">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="sender_id" ColumnName="sender_id" />
+          <ScalarProperty Name="receiver_id" ColumnName="receiver_id" />
+          <ScalarProperty Name="date_time" ColumnName="date_time" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="request_id" ColumnName="request_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Friend_Request">
+      <EntityTypeMapping TypeName="SmsSite_dbModel.Friend_Request">
+        <MappingFragment StoreEntitySet="Friend_Request">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="sender_id" ColumnName="sender_id" />
+          <ScalarProperty Name="receiver_id" ColumnName="receiver_id" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="unfriended_by" ColumnName="unfriended_by" />
+          <ScalarProperty Name="send_date" ColumnName="send_date" />
+          <ScalarProperty Name="receive_date" ColumnName="receive_date" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Messages">
+      <EntityTypeMapping TypeName="SmsSite_dbModel.Messages">
+        <MappingFragment StoreEntitySet="Messages">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="messages" ColumnName="messages" />
+          <ScalarProperty Name="To" ColumnName="To" />
+          <ScalarProperty Name="From" ColumnName="From" />
+          <ScalarProperty Name="no_of_receiver" ColumnName="no_of_receiver" />
+          <ScalarProperty Name="no_of_sender" ColumnName="no_of_sender" />
+          <ScalarProperty Name="date_time" ColumnName="date_time" />
+          <ScalarProperty Name="attachment" ColumnName="attachment" />
+          <ScalarProperty Name="status" ColumnName="status" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Services">
+      <EntityTypeMapping TypeName="SmsSite_dbModel.Services">
+        <MappingFragment StoreEntitySet="Services">
+          <ScalarProperty Name="amount" ColumnName="amount" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="service_title" ColumnName="service_title" />
+          <ScalarProperty Name="service_description" ColumnName="service_description" />
+          <ScalarProperty Name="service_image" ColumnName="service_image" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="user_personal">
+      <EntityTypeMapping TypeName="SmsSite_dbModel.user_personal">
+        <MappingFragment StoreEntitySet="user_personal">
+          <ScalarProperty Name="S_No" ColumnName="S.No" />
+          <ScalarProperty Name="user_id" ColumnName="user_id" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="gender" ColumnName="gender" />
+          <ScalarProperty Name="DOB" ColumnName="DOB" />
+          <ScalarProperty Name="address" ColumnName="address" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="hobbies" ColumnName="hobbies" />
+          <ScalarProperty Name="likes" ColumnName="likes" />
+          <ScalarProperty Name="dislikes" ColumnName="dislikes" />
+          <ScalarProperty Name="cuisines" ColumnName="cuisines" />
+          <ScalarProperty Name="sports" ColumnName="sports" />
+          <ScalarProperty Name="photo" ColumnName="photo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="user_professional">
+      <EntityTypeMapping TypeName="SmsSite_dbModel.user_professional">
+        <MappingFragment StoreEntitySet="user_professional">
+          <ScalarProperty Name="S_No" ColumnName="S.No" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="qualification" ColumnName="qualification" />
+          <ScalarProperty Name="school" ColumnName="school" />
+          <ScalarProperty Name="college" ColumnName="college" />
+          <ScalarProperty Name="work_status" ColumnName="work_status" />
+          <ScalarProperty Name="organization" ColumnName="organization" />
+          <ScalarProperty Name="designation" ColumnName="designation" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="user_required">
+      <EntityTypeMapping TypeName="SmsSite_dbModel.user_required">
+        <MappingFragment StoreEntitySet="user_required">
+          <ScalarProperty Name="lastseen" ColumnName="lastseen" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="username" ColumnName="username" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="phone_no" ColumnName="phone_no" />
+          <ScalarProperty Name="password" ColumnName="password" />
+          <ScalarProperty Name="active_status" ColumnName="active_status" />
+          <ScalarProperty Name="time" ColumnName="time" />
+          <ScalarProperty Name="account_status" ColumnName="account_status" />
+          <ScalarProperty Name="service_activate" ColumnName="service_activate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Contact">
+      <EntityTypeMapping TypeName="SmsSite_dbModel.Contact">
+        <MappingFragment StoreEntitySet="Contact">
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="contact_number" ColumnName="contact number" />
+          <ScalarProperty Name="user" ColumnName="user" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="texting">
+      <EntityTypeMapping TypeName="SmsSite_dbModel.texting">
+        <MappingFragment StoreEntitySet="texting">
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="text" ColumnName="text" />
+          <ScalarProperty Name="time" ColumnName="time" />
+          <ScalarProperty Name="name_of_receiver" ColumnName="name_of_receiver" />
+          <ScalarProperty Name="to" ColumnName="to" />
+          <ScalarProperty Name="from" ColumnName="from" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="credit_card">
+      <EntityTypeMapping TypeName="SmsSite_dbModel.credit_card">
+        <MappingFragment StoreEntitySet="credit_card">
+          <ScalarProperty Name="activated_service" ColumnName="activated_service" />
+          <ScalarProperty Name="amount" ColumnName="amount" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="CVV" ColumnName="CVV" />
+          <ScalarProperty Name="expiry_date" ColumnName="expiry_date" />
+          <ScalarProperty Name="holder_name" ColumnName="holder_name" />
+          <ScalarProperty Name="card_no" ColumnName="card_no" />
+          <ScalarProperty Name="user_Id" ColumnName="user_Id" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

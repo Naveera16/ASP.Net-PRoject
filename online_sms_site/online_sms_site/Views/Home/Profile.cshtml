@@ -1,0 +1,530 @@
+﻿@model online_sms_site.Models.mainmodel
+@{
+    Layout = "~/Views/Shared/_userlayout.cshtml";
+    ViewBag.Title = "Profile";
+}
+@{
+    if (Session["login_complete"] != null)
+    {
+        @Html.Raw(Session["login_complete"])
+        Session.Remove("login_complete");
+    }
+    if (Session["img_msg"] != null)
+    {
+        @Html.Raw(Session["img_msg"])
+        Session.Remove("img_msg");
+    }
+
+    if (Session["updated"] != null)
+    {
+        @Html.Raw(Session["updated"])
+        Session.Remove("updated");
+    }
+}
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Page Title</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
+
+    @*Bootstra link*@
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <script src='main.js'></script>
+
+
+  
+<style>
+/*   profile background picture*/
+    .profilebg {
+        background-image: url('/assets/images/cool-background.png');
+        background-repeat: no-repeat;
+        background-position: center center;
+        background-size: cover;
+        padding: 7em 0;
+    }
+
+</style>
+</head>
+<body>
+
+    @*Section Start*@
+
+    <section class="profilebg">
+        @*Container Start*@
+        <div class="container py-5">
+
+
+            <div class="row" style="margin-top:-10%;">
+                <div class="col-lg-4">
+                    <div class="card mb-4 py-4" style="background-color: white; ">
+                        <div class="card-body text-center">
+
+                            @*Proflie Image in Round Shape*@
+
+                            <img src="@Url.Content(Model.model2.photo)" alt="avatar"
+                                 class="rounded-circle img-fluid" style="width: 180px;">
+
+                            <h5 class="my-3"><b>@Model.model1.username</b></h5>
+                            <hr style="border: 1px solid #435f7a " />
+                            <div class="d-flex justify-content-center ">
+                                @Html.ActionLink("Edit Profile", "EditData", new { id = Model.model1.Id }, new { @class = "btn btn-primary w-50 mt-3 " })
+
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-lg-8">
+                    <div class="card mb-4 p-5">
+                        <div class="card-body   fs-5 ">
+                            <p class="fs-3 mb-4">
+                                <b>My Profile </b>
+                            </p>
+                            <hr style="border: 1px solid #435f7a" />
+                            <div class="row mb-3 ">
+                                <div class="col-sm-3">
+
+                                    @*Full Name*@
+
+                                    <p class="mb-0">
+                                        <b> Full Name</b>
+                                    </p>
+                                </div>
+                                <div class="col-sm-9">
+                                    <p class="text-muted mb-0">@Model.model2.name</p>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-sm-3">
+
+                                    @*Email*@
+
+                                    <p class="mb-0">
+                                        <b>Email</b>
+                                    </p>
+                                </div>
+                                <div class="col-sm-9">
+                                    <p class=" mb-0">@Model.model1.email</p>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-sm-3">
+
+                                    @*Phone Number*@
+
+                                    <p class="mb-0">
+                                        <b>Phone Number</b>
+                                    </p>
+                                </div>
+                                <div class="col-sm-9">
+                                    <p class="mb-0">@Model.model1.phone_no</p>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-sm-3">
+
+                                    @*Password*@
+
+                                    <p class="mb-0">
+                                        <b>Password</b>
+                                    </p>
+                                </div>
+                                <div class="col-sm-9">
+                                    <p class=" mb-0">@Model.model1.password</p>
+                                </div>
+                            </div>
+                            <div class="row mb-3 ">
+                                <button class="btn btn-outline-primary w-50" data-bs-toggle="modal" data-bs-target="#services">Services activated</button>
+                            </div>
+                        </div>
+
+                    </div>
+                    <!-- ROW START -->
+                    <div class="row" style="background-color: white; ">
+                        <div class="col-md-6">
+                            <div class="card mb-4 mb-md-0" style="border:none;">
+                                <div class="card-body px-5 fs-6">
+                                    <p class="mb-4 fs-4">
+                                        <span class="text-primary font-italic me-1"></span> <b>Personal Details</b>
+                                    </p>
+                                    <hr style="border: 1px solid #435f7a" />
+
+
+                                    <div class="row mb-4 g-3 align-items-center ">
+
+                                        @*Gender*@
+
+                                        <div class="col-5">
+                                            <p class=" mb-0">
+                                                <b>Gender</b>
+                                            </p>
+                                        </div>
+                                        <div class="col-7">
+                                            <p class=" mb-0">
+                                                @{ if (@Model.model2.gender == null)
+                                                    { @ViewBag.norecord }
+                                                    else
+                                                    { @Model.model2.gender } }
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <!-- COlUMN END-->
+                                    <!-- COlUMN START-->
+                                    <div class="row mb-4 g-3 align-items-center">
+
+                                        @*Date Of Birth*@
+
+                                        <div class="col-5">
+                                            <p class=" mb-0">
+                                                <b>Date Of Birth</b>
+                                            </p>
+                                        </div>
+                                        <div class="col-7">
+                                            <p class=" mb-0">
+                                                @{ if (@Model.model2.DOB == null)
+                                                    { @ViewBag.norecord }
+                                                    else
+                                                    { @Model.model2.DOB } }
+                                            </p>
+
+                                        </div>
+                                    </div>
+                                    <!-- COlUMN END-->
+                                    <!-- COlUMN START-->
+                                    <div class="row mb-4 g-3 align-items-center">
+
+                                        @*Status*@
+
+                                        <div class="col-5">
+                                            <p class=" mb-0">
+                                                <b>Status</b>
+                                            </p>
+                                        </div>
+                                        <div class="col-7">
+                                            <p class=" mb-0">
+                                                @{ if (@Model.model2.status == null)
+                                                    { @ViewBag.norecord }
+                                                    else
+                                                    { @Model.model2.status } }
+                                            </p>
+
+                                        </div>
+                                    </div>
+                                    <!-- COlUMN END-->
+                                    <!-- COlUMN START-->
+                                    <div class="row mb-4 g-3 align-items-center">
+
+                                        @*Hobbies*@
+
+                                        <div class="col-5">
+                                            <p class=" mb-0">
+                                                <b>Hobbies</b>
+                                            </p>
+                                        </div>
+                                        <div class="col-7">
+                                            <p class=" mb-0">
+                                                @{if (@Model.model2.hobbies == null)
+                                                    { @ViewBag.norecord }
+                                                    else
+                                                    { @Model.model2.hobbies } }
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <!-- COlUMN END-->
+                                    <!-- COlUMN START-->
+                                    <div class="row mb-4 g-3 align-items-center">
+
+                                        @*Likes*@
+
+                                        <div class="col-5">
+                                            <p class=" mb-0">
+                                                <b>Likes</b>
+                                            </p>
+                                        </div>
+                                        <div class="col-7">
+                                            <p class=" mb-0">
+                                                @{ if (@Model.model2.likes == null)
+                                                    { @ViewBag.norecord }
+                                                    else
+                                                    { @Model.model2.likes } }
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <!-- COlUMN END-->
+                                    <!-- COlUMN START-->
+                                    <div class="row mb-3 g-3 align-items-center">
+
+                                        @*Cuisines*@
+
+                                        <div class="col-5">
+                                            <p class=" mb-0">
+                                                <b>Cuisines</b>
+                                            </p>
+                                        </div>
+                                        <div class="col-7">
+                                            <p class=" mb-0">
+                                                @{ if (@Model.model2.cuisines == null)
+                                                    { @ViewBag.norecord }
+                                                    else
+                                                    { @Model.model2.cuisines } }
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <!-- COlUMN END-->
+                                    <!-- COlUMN START-->
+                                    <div class="row mb-4 g-3 align-items-center">
+                                        <div class="col-5">
+
+                                            @*Sports*@
+
+                                            <p class=" mb-0">
+                                                <b>Sports</b>
+                                            </p>
+                                        </div>
+                                        <div class="col-7">
+                                            <p class=" mb-0">
+                                                @{ if (@Model.model2.sports == null)
+                                                    { @ViewBag.norecord }
+                                                    else
+                                                    { @Model.model2.sports } }
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <!-- COlUMN END-->
+                                    <!-- COlUMN START-->
+                                    <div class="row mb-4 g-3 align-items-center">
+
+                                        @*Dislikes*@
+
+                                        <div class="col-5">
+                                            <p class=" mb-0">
+                                                <b>Dislikes</b>
+                                            </p>
+                                        </div>
+                                        <div class="col-7">
+                                            <p class=" mb-0">
+                                                @{ if (@Model.model2.dislikes == null)
+                                                    { @ViewBag.norecord }
+                                                    else
+                                                    { @Model.model2.dislikes } }
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <!-- COlUMN END-->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="vertical" style="max-width: 1px; background-color: #CED3D9; height: 350px; position: absolute; margin-left: 50%; margin-top: 10%; "></div>
+                        @*<hr class="vertical" />*@
+                        <div class="col-md-6">
+                            <div class="card mb-4 mb-md-0" style="border:none;">
+
+                                <div class="card-body px-5 fs-6">
+
+                                    <p class="mb-4 fs-4">
+                                        <span class="text-primary font-italic me-1"></span> <b>Professional Details</b>
+                                    </p>
+                                    <hr style="border: 1px solid #435f7a" />
+                                    <!-- COlUMN START-->
+                                    <div class="row g-3 mb-4 align-items-center">
+
+                                        @*Address*@
+
+                                        <div class="col-5">
+                                            <p class="mb-0">
+                                                <b>Address</b>
+                                            </p>
+                                        </div>
+                                        <div class="col-7">
+                                            <p class=" mb-0">
+                                                @{ if (@Model.model2.address == null)
+                                                    { @ViewBag.norecord }
+                                                    else
+                                                    { @Model.model2.address } }
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="row g-3 mb-4 align-items-center">
+
+                                        @*School*@
+
+                                        <div class="col-5">
+                                            <p class="mb-0">
+                                                <b>School</b>
+                                            </p>
+                                        </div>
+                                        <div class="col-7">
+                                            <p class=" mb-0">
+                                                @{ if (@Model.model3.school == null)
+                                                    { @ViewBag.norecord }
+                                                    else
+                                                    { @Model.model3.school } }
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <!-- COlUMN END-->
+                                    <!-- COlUMN START-->
+                                    <div class="row g-3 mb-4 align-items-center">
+
+                                        @*College*@
+
+                                        <div class="col-5">
+                                            <p class="mb-0">
+                                                <b>College</b>
+                                            </p>
+                                        </div>
+                                        <div class="col-7">
+                                            <p class="mb-0">
+                                                @{ if (@Model.model3.college == null)
+                                                    { @ViewBag.norecord }
+                                                    else
+                                                    { @Model.model3.college } }
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <!-- COlUMN END-->
+                                    <!-- COlUMN START-->
+                                    <div class="row g-3 mb-4 align-items-center">
+
+                                        @*Qualification*@
+
+                                        <div class="col-5">
+                                            <p class="mb-0">
+                                                <b>Qualification</b>
+                                            </p>
+                                        </div>
+                                        <div class="col-7">
+                                            <p class="mb-0">
+                                                @{ if (@Model.model3.qualification == null)
+                                                    { @ViewBag.norecord }
+                                                    else
+                                                    { @Model.model3.qualification } }
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <!-- COlUMN END-->
+                                    <!-- COlUMN START-->
+                                    <div class="row g-3 mb-4 align-items-center">
+
+                                        @*Designation*@
+
+                                        <div class="col-5">
+                                            <p class="mb-0">
+                                                <b>Designation</b>
+                                            </p>
+                                        </div>
+                                        <div class="col-7">
+                                            <p class="mb-0">
+                                                @{ if (@Model.model3.designation == null)
+                                                    { @ViewBag.norecord }
+                                                    else
+                                                    { @Model.model3.designation } }
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <!-- COlUMN END-->
+                                    <!-- COlUMN START-->
+                                    <div class="row g-3 mb-4 align-items-center">
+
+                                        @*Organization*@
+
+                                        <div class="col-5">
+                                            <p class="mb-0">
+                                                <b>Organization</b>
+                                            </p>
+                                        </div>
+                                        <div class="col-7">
+                                            <p class="mb-0">
+                                                @{ if (@Model.model3.organization == null)
+                                                    { @ViewBag.norecord }
+                                                    else
+                                                    { @Model.model3.organization } }
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <!-- COlUMN END-->
+                                    <!-- COlUMN START-->
+                                    <div class="row g-3 mb-4 align-items-center">
+
+                                        @*Work Status*@
+
+                                        <div class="col-5">
+                                            <p class="mb-0">
+                                                <b>Work Status</b>
+                                            </p>
+                                        </div>
+                                        <div class="col-7">
+                                            <p class="mb-0">
+                                                @{ if (@Model.model3.work_status == null)
+                                                    { @ViewBag.norecord }
+                                                    else
+                                                    { @Model.model3.work_status } }
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <!-- COlUMN END-->
+                                    <br>
+                                </div>
+
+
+
+
+                            </div>
+
+                        </div>
+                        <!-- ROW END -->
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        @*Container End*@
+    </section>
+    <div class="modal" id="services" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable "  >
+            <div class="modal-content border border-primary">
+                <div class="modal-header bg-info">
+                    <h3 class="modal-title text-dark">Service Activated</h3>
+                </div>
+                <div class="modal-body">
+                    @{var myid = Convert.ToInt32(Session["user_id"]);
+                        if (Model.services_.Any(item => item.card.user_Id == myid))
+                        {
+                            <p>
+                                Your activated services are :
+                            </p>
+                            foreach (var item in Model.services_)
+                            {
+
+
+                                if (item.service.Id == item.card.activated_service && item.card.user_Id == myid)
+                                {
+                                    <p>@item.service.service_title</p>
+
+                                }
+                            }
+
+                        }
+                        else
+                        {
+                            <p> No Service Activated</p>
+                        }}
+                    
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-primary w-50" data-bs-dismiss="modal">OK</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    @*Section End*@
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+</body>
+</html>

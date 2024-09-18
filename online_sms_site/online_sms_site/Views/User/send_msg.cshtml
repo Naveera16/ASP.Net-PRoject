@@ -1,0 +1,59 @@
+﻿@model online_sms_site.Models.Messages
+
+@{
+    ViewBag.Title = "send_msg";
+    //Layout = "~/Views/Shared/_userlayout.cshtml";
+    Layout = null;
+}
+<!--CONVERSATION START-->
+@{var my_id = Convert.ToInt32(Session["user_id"]); }
+@if (Model.To != my_id)
+{
+    <li class="conversation-item ">
+
+        <div class="conversation-item-content">
+            <div class="conversation-item-wrapper">
+                <div class="conversation-item-box">
+                    <div class="conversation-item-text">
+                        <p>@Model.messages</p>
+                        <div class="conversation-item-time">@Model.date_time</div>
+                    </div>
+                    <div class="conversation-item-dropdown">
+                        <button type="button" class="conversation-item-dropdown-toggle"><i class="ri-more-2-line"></i></button>
+                        <ul class="conversation-item-dropdown-list">
+                            <li><a href="#"><i class="ri-share-forward-line"></i> Forward</a></li>
+                            <li><a href="#"><i class="ri-delete-bin-line"></i> Delete</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </li>
+}
+else
+{
+    <li class="conversation-item me ">
+
+        <div class="conversation-item-content">
+            <div class="conversation-item-wrapper">
+                <div class="conversation-item-box">
+                    <div class="conversation-item-text">
+                        <p>@Model.messages</p>
+                        <div class="conversation-item-time">@Model.date_time</div>
+                    </div>
+                    <div class="conversation-item-dropdown">
+                        <button type="button" class="conversation-item-dropdown-toggle"><i class="ri-more-2-line"></i></button>
+                        <ul class="conversation-item-dropdown-list">
+                            <li><a href="#"><i class="ri-share-forward-line"></i> Forward</a></li>
+                            <li><a href="#"><i class="ri-delete-bin-line"></i> Delete</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </li>
+}
+
+<!--CONVERSATION END-->

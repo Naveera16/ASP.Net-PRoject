@@ -1,0 +1,59 @@
+﻿@model IEnumerable<online_sms_site.Models.user_personal>
+@{
+    ViewBag.Title = "friend_request";
+    Layout = "~/Views/Shared/_friendlayout.cshtml";
+}
+
+@*<link rel="stylesheet" href="~/friend_css/style.css">*@
+@*cards*@
+
+
+
+
+
+@{ var no_of_request = "";
+    foreach (var request in Model)
+    {
+        int?[] requestids = ViewBag.requestids;
+        var checkids = request.user_id;
+        bool idExists = Array.Exists(requestids, element => element == checkids);
+        if (idExists)
+        {
+
+            no_of_request = "yes";
+            <!--CARD FOR FRIEND REQUEST START-->
+            <div class="col-3 ml-5 mb-3 border" style=" text-align: -webkit-center;">
+                <div class="card text-center align-items-center p-2" style="width: 15rem;border:none">
+                    <div class="top" style="height: 200px; width: 85%; ">
+                        <a style="text-decoration:none" class="w-75 h-75" href="@Url.Action("otherprofile", "User", new { id = request.user_id, status ="request" })">
+                            <img src="@Url.Content(request.photo)" class="mt-2 card-img-top w-75  h-75" alt="...">
+                            <h5 class="card-title mb-0 mt-2">@request.name</h5>
+                        </a>
+                    </div>
+                    <div class="card-body mt-0 p-0 pb-2">
+                        <hr style="color:black" />
+                        @Html.ActionLink("Accept", "accept_req", "User", new { id = request.user_id }, new { @class = "btn btn-primary w-100" })
+
+                        <br />
+                        @Html.ActionLink("Remove", "remove_req", "User", new { id = request.user_id }, new { @class = "btn btn-primary w-100 mt-3" })
+                    </div>
+                </div>
+            </div>
+            <!--CARD FOR FRIEND REQUEST END-->
+        }
+
+
+    }
+}
+
+
+@if (no_of_request != "yes")
+{
+
+    <div class="w-100 text-center ">
+        <h1 class="text-muted">No Request</h1>
+    </div>
+
+}
+
+

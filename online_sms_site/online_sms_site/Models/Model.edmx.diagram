@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="fd58d71961e4460abd7760da90d85f4e" Name="Diagram1" ZoomLevel="64">
+        <EntityTypeShape EntityType="SmsSite_dbModel.friend_list" Width="1.5" PointX="7.75" PointY="0.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="SmsSite_dbModel.Friend_Request" Width="1.5" PointX="9.5" PointY="2.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="SmsSite_dbModel.Messages" Width="1.5" PointX="5.875" PointY="6.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="SmsSite_dbModel.Services" Width="1.5" PointX="4" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="SmsSite_dbModel.user_personal" Width="1.5" PointX="2.25" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SmsSite_dbModel.user_professional" Width="1.5" PointX="4" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="SmsSite_dbModel.user_required" Width="1.5" PointX="0.5" PointY="0.625" IsExpanded="true" />
+        <AssociationConnector Association="SmsSite_dbModel.FK__friend_li__recei__48CFD27E" ManuallyRouted="false" />
+        <AssociationConnector Association="SmsSite_dbModel.FK__friend_li__reque__49C3F6B7" ManuallyRouted="false" />
+        <AssociationConnector Association="SmsSite_dbModel.FK__friend_li__sende__47DBAE45" ManuallyRouted="false" />
+        <AssociationConnector Association="SmsSite_dbModel.FK__Friend_Re__recei__46E78A0C" ManuallyRouted="false" />
+        <AssociationConnector Association="SmsSite_dbModel.FK__Friend_Re__sende__45F365D3" ManuallyRouted="false" />
+        <AssociationConnector Association="SmsSite_dbModel.FK__Messages__From__4316F928" ManuallyRouted="false" />
+        <AssociationConnector Association="SmsSite_dbModel.FK__Messages__To__4222D4EF" ManuallyRouted="false" />
+        <AssociationConnector Association="SmsSite_dbModel.FK__user_pers__user___3B75D760" ManuallyRouted="false" />
+        <AssociationConnector Association="SmsSite_dbModel.FK__user_profess__Id__38996AB5" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="SmsSite_dbModel.Contact" Width="1.5" PointX="9.625" PointY="0.625" />
+        <EntityTypeShape EntityType="SmsSite_dbModel.texting" Width="1.5" PointX="0.5" PointY="6.5" />
+        <AssociationConnector Association="SmsSite_dbModel.FK__Contact__user__5FB337D6" />
+        <AssociationConnector Association="SmsSite_dbModel.FK__texting__from__5CD6CB2B" />
+        <EntityTypeShape EntityType="SmsSite_dbModel.credit_card" Width="1.5" PointX="5.75" PointY="0.875" />
+        <AssociationConnector Association="SmsSite_dbModel.FK__credit_ca__activ__03F0984C" />
+        <AssociationConnector Association="SmsSite_dbModel.FK__credit_ca__user___02FC7413" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

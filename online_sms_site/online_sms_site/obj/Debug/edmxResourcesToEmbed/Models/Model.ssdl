@@ -1,0 +1,368 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="SmsSite_dbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Contact">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="user" Type="int" />
+    <Property Name="contact number" Type="bigint" />
+    <Property Name="name" Type="varchar" MaxLength="50" />
+    <Property Name="status" Type="bit" />
+  </EntityType>
+  <EntityType Name="credit_card">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="user_Id" Type="int" />
+    <Property Name="card_no" Type="bigint" />
+    <Property Name="holder_name" Type="varchar" MaxLength="50" />
+    <Property Name="expiry_date" Type="varchar" MaxLength="100" />
+    <Property Name="CVV" Type="int" />
+    <Property Name="email" Type="varchar" MaxLength="50" />
+    <Property Name="amount" Type="int" />
+    <Property Name="activated_service" Type="int" />
+  </EntityType>
+  <EntityType Name="friend_list">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="sender_id" Type="int" />
+    <Property Name="receiver_id" Type="int" />
+    <Property Name="date_time" Type="varchar" MaxLength="100" />
+    <Property Name="status" Type="varchar" MaxLength="50" />
+    <Property Name="request_id" Type="int" />
+  </EntityType>
+  <EntityType Name="Friend_Request">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="sender_id" Type="int" />
+    <Property Name="receiver_id" Type="int" />
+    <Property Name="status" Type="varchar" MaxLength="50" />
+    <Property Name="unfriended_by" Type="varchar" MaxLength="50" />
+    <Property Name="send_date" Type="varchar" MaxLength="100" />
+    <Property Name="receive_date" Type="varchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="Messages">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="messages" Type="varchar" MaxLength="500" />
+    <Property Name="To" Type="int" />
+    <Property Name="From" Type="int" />
+    <Property Name="no_of_receiver" Type="bigint" />
+    <Property Name="no_of_sender" Type="bigint" />
+    <Property Name="date_time" Type="varchar" MaxLength="100" />
+    <Property Name="attachment" Type="varchar(max)" />
+    <Property Name="status" Type="bit" />
+  </EntityType>
+  <EntityType Name="Services">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="service_title" Type="varchar" MaxLength="50" />
+    <Property Name="service_description" Type="varchar(max)" />
+    <Property Name="service_image" Type="varchar(max)" />
+    <Property Name="amount" Type="bigint" />
+  </EntityType>
+  <EntityType Name="texting">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="from" Type="int" />
+    <Property Name="to" Type="bigint" />
+    <Property Name="name_of_receiver" Type="varchar" MaxLength="50" />
+    <Property Name="time" Type="varchar" MaxLength="50" />
+    <Property Name="text" Type="varchar" MaxLength="200" />
+    <Property Name="status" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="user_personal">
+    <Key>
+      <PropertyRef Name="S.No" />
+    </Key>
+    <Property Name="S.No" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="user_id" Type="int" Nullable="false" />
+    <Property Name="name" Type="varchar" MaxLength="50" />
+    <Property Name="gender" Type="varchar" MaxLength="50" />
+    <Property Name="DOB" Type="varchar" MaxLength="50" />
+    <Property Name="address" Type="varchar" MaxLength="150" />
+    <Property Name="status" Type="varchar" MaxLength="50" />
+    <Property Name="hobbies" Type="varchar" MaxLength="150" />
+    <Property Name="likes" Type="varchar" MaxLength="150" />
+    <Property Name="dislikes" Type="varchar" MaxLength="150" />
+    <Property Name="cuisines" Type="varchar" MaxLength="150" />
+    <Property Name="sports" Type="varchar" MaxLength="150" />
+    <Property Name="photo" Type="varchar(max)" />
+  </EntityType>
+  <EntityType Name="user_professional">
+    <Key>
+      <PropertyRef Name="S.No" />
+    </Key>
+    <Property Name="S.No" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="qualification" Type="varchar" MaxLength="70" />
+    <Property Name="school" Type="varchar" MaxLength="50" />
+    <Property Name="college" Type="varchar" MaxLength="50" />
+    <Property Name="work_status" Type="varchar" MaxLength="50" />
+    <Property Name="organization" Type="varchar" MaxLength="50" />
+    <Property Name="designation" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="user_required">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="username" Type="varchar" MaxLength="50" />
+    <Property Name="email" Type="varchar" MaxLength="50" />
+    <Property Name="phone_no" Type="bigint" />
+    <Property Name="password" Type="varchar" MaxLength="50" />
+    <Property Name="lastseen" Type="varchar" MaxLength="50" />
+    <Property Name="active_status" Type="bit" />
+    <Property Name="time" Type="varchar" MaxLength="50" />
+    <Property Name="account_status" Type="bit" />
+    <Property Name="service_activate" Type="varchar" MaxLength="255" />
+  </EntityType>
+  <Association Name="FK__Contact__user__5FB337D6">
+    <End Role="user_required" Type="Self.user_required" Multiplicity="0..1" />
+    <End Role="Contact" Type="Self.Contact" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="user_required">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Contact">
+        <PropertyRef Name="user" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__credit_ca__activ__03F0984C">
+    <End Role="user_required" Type="Self.user_required" Multiplicity="0..1" />
+    <End Role="credit_card" Type="Self.credit_card" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="user_required">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="credit_card">
+        <PropertyRef Name="activated_service" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__credit_ca__user___02FC7413">
+    <End Role="user_required" Type="Self.user_required" Multiplicity="0..1" />
+    <End Role="credit_card" Type="Self.credit_card" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="user_required">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="credit_card">
+        <PropertyRef Name="user_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__friend_li__recei__48CFD27E">
+    <End Role="user_required" Type="Self.user_required" Multiplicity="0..1" />
+    <End Role="friend_list" Type="Self.friend_list" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="user_required">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="friend_list">
+        <PropertyRef Name="receiver_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__friend_li__reque__49C3F6B7">
+    <End Role="Friend_Request" Type="Self.Friend_Request" Multiplicity="0..1" />
+    <End Role="friend_list" Type="Self.friend_list" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Friend_Request">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="friend_list">
+        <PropertyRef Name="request_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__friend_li__sende__47DBAE45">
+    <End Role="user_required" Type="Self.user_required" Multiplicity="0..1" />
+    <End Role="friend_list" Type="Self.friend_list" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="user_required">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="friend_list">
+        <PropertyRef Name="sender_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Friend_Re__recei__46E78A0C">
+    <End Role="user_required" Type="Self.user_required" Multiplicity="0..1" />
+    <End Role="Friend_Request" Type="Self.Friend_Request" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="user_required">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Friend_Request">
+        <PropertyRef Name="receiver_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Friend_Re__sende__45F365D3">
+    <End Role="user_required" Type="Self.user_required" Multiplicity="0..1" />
+    <End Role="Friend_Request" Type="Self.Friend_Request" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="user_required">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Friend_Request">
+        <PropertyRef Name="sender_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Messages__From__4316F928">
+    <End Role="user_required" Type="Self.user_required" Multiplicity="0..1" />
+    <End Role="Messages" Type="Self.Messages" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="user_required">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Messages">
+        <PropertyRef Name="From" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Messages__To__4222D4EF">
+    <End Role="user_required" Type="Self.user_required" Multiplicity="0..1" />
+    <End Role="Messages" Type="Self.Messages" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="user_required">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Messages">
+        <PropertyRef Name="To" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__texting__from__5CD6CB2B">
+    <End Role="user_required" Type="Self.user_required" Multiplicity="0..1" />
+    <End Role="texting" Type="Self.texting" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="user_required">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="texting">
+        <PropertyRef Name="from" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__texting__from__6E01572D">
+    <End Role="user_required" Type="Self.user_required" Multiplicity="0..1" />
+    <End Role="texting" Type="Self.texting" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="user_required">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="texting">
+        <PropertyRef Name="from" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__user_pers__user___3B75D760">
+    <End Role="user_required" Type="Self.user_required" Multiplicity="1" />
+    <End Role="user_personal" Type="Self.user_personal" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="user_required">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="user_personal">
+        <PropertyRef Name="user_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__user_profess__Id__38996AB5">
+    <End Role="user_required" Type="Self.user_required" Multiplicity="1" />
+    <End Role="user_professional" Type="Self.user_professional" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="user_required">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="user_professional">
+        <PropertyRef Name="Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="SmsSite_dbModelStoreContainer">
+    <EntitySet Name="Contact" EntityType="Self.Contact" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="credit_card" EntityType="Self.credit_card" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="friend_list" EntityType="Self.friend_list" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Friend_Request" EntityType="Self.Friend_Request" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Messages" EntityType="Self.Messages" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Services" EntityType="Self.Services" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="texting" EntityType="Self.texting" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="user_personal" EntityType="Self.user_personal" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="user_professional" EntityType="Self.user_professional" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="user_required" EntityType="Self.user_required" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__Contact__user__5FB337D6" Association="Self.FK__Contact__user__5FB337D6">
+      <End Role="user_required" EntitySet="user_required" />
+      <End Role="Contact" EntitySet="Contact" />
+    </AssociationSet>
+    <AssociationSet Name="FK__credit_ca__activ__03F0984C" Association="Self.FK__credit_ca__activ__03F0984C">
+      <End Role="user_required" EntitySet="user_required" />
+      <End Role="credit_card" EntitySet="credit_card" />
+    </AssociationSet>
+    <AssociationSet Name="FK__credit_ca__user___02FC7413" Association="Self.FK__credit_ca__user___02FC7413">
+      <End Role="user_required" EntitySet="user_required" />
+      <End Role="credit_card" EntitySet="credit_card" />
+    </AssociationSet>
+    <AssociationSet Name="FK__friend_li__recei__48CFD27E" Association="Self.FK__friend_li__recei__48CFD27E">
+      <End Role="user_required" EntitySet="user_required" />
+      <End Role="friend_list" EntitySet="friend_list" />
+    </AssociationSet>
+    <AssociationSet Name="FK__friend_li__reque__49C3F6B7" Association="Self.FK__friend_li__reque__49C3F6B7">
+      <End Role="Friend_Request" EntitySet="Friend_Request" />
+      <End Role="friend_list" EntitySet="friend_list" />
+    </AssociationSet>
+    <AssociationSet Name="FK__friend_li__sende__47DBAE45" Association="Self.FK__friend_li__sende__47DBAE45">
+      <End Role="user_required" EntitySet="user_required" />
+      <End Role="friend_list" EntitySet="friend_list" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Friend_Re__recei__46E78A0C" Association="Self.FK__Friend_Re__recei__46E78A0C">
+      <End Role="user_required" EntitySet="user_required" />
+      <End Role="Friend_Request" EntitySet="Friend_Request" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Friend_Re__sende__45F365D3" Association="Self.FK__Friend_Re__sende__45F365D3">
+      <End Role="user_required" EntitySet="user_required" />
+      <End Role="Friend_Request" EntitySet="Friend_Request" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Messages__From__4316F928" Association="Self.FK__Messages__From__4316F928">
+      <End Role="user_required" EntitySet="user_required" />
+      <End Role="Messages" EntitySet="Messages" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Messages__To__4222D4EF" Association="Self.FK__Messages__To__4222D4EF">
+      <End Role="user_required" EntitySet="user_required" />
+      <End Role="Messages" EntitySet="Messages" />
+    </AssociationSet>
+    <AssociationSet Name="FK__texting__from__5CD6CB2B" Association="Self.FK__texting__from__5CD6CB2B">
+      <End Role="user_required" EntitySet="user_required" />
+      <End Role="texting" EntitySet="texting" />
+    </AssociationSet>
+    <AssociationSet Name="FK__texting__from__6E01572D" Association="Self.FK__texting__from__6E01572D">
+      <End Role="user_required" EntitySet="user_required" />
+      <End Role="texting" EntitySet="texting" />
+    </AssociationSet>
+    <AssociationSet Name="FK__user_pers__user___3B75D760" Association="Self.FK__user_pers__user___3B75D760">
+      <End Role="user_required" EntitySet="user_required" />
+      <End Role="user_personal" EntitySet="user_personal" />
+    </AssociationSet>
+    <AssociationSet Name="FK__user_profess__Id__38996AB5" Association="Self.FK__user_profess__Id__38996AB5">
+      <End Role="user_required" EntitySet="user_required" />
+      <End Role="user_professional" EntitySet="user_professional" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

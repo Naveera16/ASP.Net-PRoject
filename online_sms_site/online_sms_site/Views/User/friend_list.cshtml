@@ -1,0 +1,55 @@
+﻿@model IEnumerable<online_sms_site.Models.user_personal>
+
+
+@{
+    ViewBag.Title = "friend_list";
+    Layout = "~/Views/Shared/_friendlayout.cshtml";
+}
+@*<link rel="stylesheet" href="~/friend_css/style.css">*@
+
+
+
+@{ var no_of_friend = "";
+    foreach (var friends in Model)
+    {
+        int?[] friend_ids = ViewBag.friend_ids;
+        int?[] friend_ids2 = ViewBag.friend_ids2;
+        int checking = friends.user_id;
+        bool idexists = Array.Exists(friend_ids, element => element == checking);
+        bool idexists2 = Array.Exists(friend_ids2, element => element == checking);
+        if (friends.user_id != Convert.ToInt32(Session["user_id"]))
+        {
+            if (idexists || idexists2)
+            {
+                no_of_friend = "Yes";
+                <!--CARD FOR FRIEND LIST START-->
+                <div class="col-3 ml-5 mb-5  border" style=" text-align: -webkit-center;">
+                    <div class="card text-center align-items-center p-2" style="width: 15rem; border:none">
+                        <div class="top" style="height: 200px; width: 85%; ">
+                            <a style="text-decoration:none" class="  w-75  h-75" href="@Url.Action("otherprofile", "User", new { id = friends.user_id, status = "friend" })">
+                                <img src="@Url.Content(friends.photo)" class="mt-2 card-img-top w-75 h-75" alt="...">
+                                <h5 class="card-title mb-0 mt-2">@friends.name</h5>
+                            </a>
+                        </div>
+                        <div class="card-body mt-0 p-0 pb-2">
+                            <hr style="color:black" />
+                            <button class="btn btn-secondary w-100" disabled>Friends </button>
+                            @Html.ActionLink("Unfriend", "unfriend", "User", new { id = friends.user_id }, new { @class = "btn btn-primary w-100 mt-2" })
+
+                        </div>
+                    </div>
+                </div>
+                <!--CARD FOR FRIEND LIST END-->
+            }
+        }
+    }
+
+    if (no_of_friend != "Yes")
+    {
+        <div class="w-100 text-center ">
+            <h1 class="text-muted">No Friends</h1>
+        </div>
+    }
+
+}
+

@@ -1,0 +1,223 @@
+﻿@model online_sms_site.Models.mainmodel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_messaginglayout.cshtml";
+}
+@*LINKS*@
+
+@*<br />
+    <br />
+    <br />*@
+@{
+    int myid = Convert.ToInt32(Session["user_id"]);
+
+
+}
+<style>
+    .conversation-main {
+        background-image: url('/assets/images/1bg.png');
+        background-repeat: no-repeat;
+        background-position: center center;
+        background-size: cover;
+        padding: 7em 2em;
+    }
+
+</style>
+
+
+<!-- start: Chat -->
+
+    
+       
+            <!-- start: Content side -->
+            <div class="content-sidebar" >
+                <div class="content-sidebar-title">Chats</div>
+             
+                <div class="content-messages">
+                    <ul class="content-messages-list">
+                        @*<li class="content-message-title"><span>Recently</span></li>*@
+                        @foreach (var combine in Model.combined_table)
+                        {
+
+                            if (combine.person.user_id != myid)
+                            {
+                                if (Model.model6.Any(item => item.sender_id == combine.person.user_id || item.receiver_id == combine.person.user_id))
+                                {
+                                    <li>
+                                        <a class="chat" data-user-id="@combine.person.user_id" data-conversation="#conversation-@combine.person.user_id">
+
+
+                                            <img class="content-message-image" src="@Url.Content(combine.person.photo)" alt="">
+                                            <span class="content-message-info">
+                                                <span class="content-message-name">@combine.person.name</span>
+                                            </span>
+                                            <span class="content-message-more">
+                                                @*<span class="content-message-unread">12</span>*@
+                                                @*<span class="content-message-time">12:30</span>*@
+                                            </span>
+                                        </a>
+                                    </li>
+                                }
+                            }
+
+                        }
+
+                    </ul>
+
+                </div>
+            </div>
+            <!-- end: Content side -->
+            <!-- start: Conversation -->
+            <div class="conversation conversation-default active">
+                <i class="ri-chat-3-line"></i>
+                <p>Select chat and view conversation!</p>
+            </div>
+            @foreach (var combined in Model.combined_table)
+            {
+                if (combined.person_required.Id == myid)
+                {
+                    var myphoto = combined.person.photo;
+                    <input type="hidden" value="@combined.person_required.phone_no" id="my_no" />
+                }
+                if (combined.person.user_id != myid)
+                {
+
+                    if (Model.model6.Any(item => item.sender_id == combined.person.user_id || item.receiver_id == combined.person.user_id))
+                    {
+
+                        <div class="conversation" id="conversation-@combined.person.user_id">
+                            <div class="conversation-top">
+                                <button type="button" class="conversation-back"><i class="ri-arrow-left-line"></i></button>
+                                <div class="conversation-user">
+                                    <img class="conversation-user-image" src="@Url.Content(combined.person.photo)" alt="">
+                                    <div>
+                                        <div class="conversation-user-name">@combined.person.name</div>
+                                        @if (combined.person_required.active_status == true)
+                                        {
+                                            <div class="conversation-user-status  online" style="color:white">
+                                                <span>Online</span>
+                                            </div>}
+                                        else
+                                        {
+                                            <div class="conversation-user-status  " style="color:white">
+                                                <span>Last seen at @combined.person_required.lastseen</span>
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+                                
+                            </div>
+                            <div class="conversation-main" >
+                                
+                                    <ul class="conversation-wrapper" id="chats_@combined.person.user_id">
+                                    </ul>
+                                
+                            </div>
+                            <div class="conversation-form" >
+                                <div class="conversation-form-group">
+                                    <input type="hidden" value="@combined.person.user_id" id="user_id" />
+                                    <input type="hidden" value="@combined.person_required.Id" id="to_id_@combined.person.user_id" />
+                                    <input type="hidden" value="@myid" id="my_id" />
+                                    <input type="hidden" value="@combined.person_required.phone_no" id="receiver_@combined.person.user_id" />
+                                    <textarea id="msg_@combined.person.user_id" class="conversation-form-input"  rows=1  placeholder="Type here..."></textarea>
+                                    @*@Html.TextAreaFor(model => model.setdata.messages, new { @class = "conversation-form-input", rows = 1, placeholder = "Type here..." })  *@
+
+                                    
+                                </div>
+
+                                <button type="button" data-user-id="@combined.person.user_id" class=" conversation-form-button conversation-form-submit"><i class="ri-send-plane-2-line"></i></button>
+                            </div>
+                        </div>
+                    }
+                }
+            }
+            <!-- end: Conversation -->
+      
+        <!-- end: Content -->
+    
+<!-- end: Chat -->
+<script>
+    $(document).ready(function () {
+
+        $(".chat").click(function getdata() {
+            var Id = $(this).data("user-id");
+            //var user_photo = $(`#photo_${Id}`).val()
+            var chat_data = $(`#chats_${Id}`)
+            $.ajax({
+                type: "POST",
+                url: "/User/mychat",
+                data: {
+                    id: Id
+                },
+                success: function (result) {
+                    chat_data.html(result);
+
+
+                },
+                error: function (xhr, status, error) {
+                    console.log(xhr);
+                    console.log(status);
+                    console.log(error);
+                    alert('Error from server:', error);
+                }
+            });
+        });
+        $("#searching").keyup(function () {
+            var search = $("#searching").val()
+            $.ajax({
+                type: "POST",
+                url: "/User/Index",
+                data: {
+                    searching: search
+                },
+                success: function (result) {
+                    //alert(result)
+                },
+                error: function (xhr, status, error) {
+                    console.log(xhr);
+                    console.log(status);
+                    console.log(error);
+                    alert('Error from server:', error);
+                }
+            });
+        })
+        $(".conversation-form-submit").click(function () {
+            var userId = $(this).data("user-id");
+            var to_id = $(`#to_id_${userId}`).val();
+            var fromid = $("#my_id").val();
+            var receiver = $(`#receiver_${userId}`).val();
+            var sender = $("#my_no").val();
+            var msg = $(`#msg_${userId}`).val();
+            if (msg != "") {
+                $.ajax({
+                    type: "POST",
+                    url: "/User/send_msg",
+                    data: {
+                        to: to_id,
+                        from: fromid,
+                        no_of_receiver: receiver,
+                        no_of_sender: sender,
+                        message: msg
+                    },
+                    success: function (result) {
+                        $(`#chats_${userId}`).append(result);
+                        $(`#msg_${userId}`).val("");
+                        //alert(result)
+                        //$("#resultTable tbody").html(result);
+                    },
+                    error: function (xhr, status, error) {
+                        console.log(xhr);
+                        console.log(status);
+                        console.log(error);
+                        alert('Error from server:', error);
+                    }
+                });
+            }
+
+
+        });
+
+    });
+
+                                    </script>
+

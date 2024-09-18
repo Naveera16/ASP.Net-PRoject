@@ -1,0 +1,77 @@
+﻿@model IEnumerable<online_sms_site.Models.Services>
+@{
+    ViewBag.Title = "Services";
+    Layout = "~/Views/Shared/_userlayout.cshtml";
+}
+
+
+   @if(Session["service_activate"]!= null)
+            {
+       @Html.Raw(Session["service_activate"])
+       Session.Remove("service_activate");
+   }
+
+<div class="container">
+
+</div>
+
+
+<!-- END section -->
+
+<section class="probootstrap_section" id="section-city-guides">
+    <br />
+    <br />
+
+    <div class="row align-items-center text-center">
+        <div class="col-md">
+            <h2 class="heading mb-2 display-4 font-dark probootstrap-animate">Our Services</h2>
+
+            <p>
+With the fast-growing world of connectivity, everyone loves to stay in touch with your loved ones around the globe. By knowing the needs of its customers <b>ONLINE SMS SITE</b> brings exciting SMS bundles in affordable prices. 
+</p>
+
+        </div>
+    </div>
+    <br />
+    <br />
+ 
+    <div class="container">
+       
+        <div class="row mb-3">
+            @foreach (var item in Model)
+            {
+
+
+<div class="col-md-12 mb-3 ">
+
+                    <div class="media probootstrap-media d-flex align-items-stretch mb-4 probootstrap-animate">
+                        <div class="probootstrap-media-image w-25">
+                            @if (item.service_image != null)
+                            {
+                            <img src="@Url.Content(item.service_image)" class="w-100" />}
+                        </div>
+                        <div class="media-body">
+
+                            <h5 class="mb-3">
+                                @Html.DisplayFor(modelItem => item.service_title)
+                            </h5>
+                            <p>@item.service_description  </p>
+                            @Html.ActionLink("Activate Now Only Rs."+@item.amount+"", "payment", "Home", new {id = item.Id }, new {@class= "btn btn-primary" })
+                            @*<button type="" class="btn btn-primary">Activate Now Only Rs.@item.amount</button>*@
+                        </div>
+                    </div>
+
+
+                    
+                </div>}
+
+
+            </div>
+
+
+        
+        </div>
+    
+</section>
+
+<!-- END section -->

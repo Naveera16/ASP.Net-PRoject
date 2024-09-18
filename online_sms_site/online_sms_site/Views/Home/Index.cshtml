@@ -1,0 +1,240 @@
+﻿@model online_sms_site.Models.user_required
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
+
+
+
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+@*CSS link*@
+<link rel='stylesheet' type='text/css' media='screen' href="~/assets/css/clock.css">
+
+@*Sessions (Session.Remove)*@
+
+@{
+    if (Session["Username"] != null)
+    {
+        @Html.Raw(Session["Username"])
+        Session.Remove("Username");
+    }
+    else if (Session["phone_no"] != null)
+    {
+        @Html.Raw(Session["phone_no"])
+        Session.Remove("phone_no");
+
+    }
+    if (Session["signup"] != null)
+    {
+        @Html.Raw(Session["signup"])
+        Session.Remove("signup");
+    }
+
+    if (Session["Login_uncomplete"] != null)
+    {
+        @Html.Raw(Session["Login_uncomplete"])
+        Session.Remove("Login_uncomplete");
+    }
+
+    if (Session["verifywrong"] != null)
+    {
+        @Html.Raw(Session["verifywrong"])
+        Session.Remove("verifywrong");
+
+
+    }
+
+}
+
+
+@*Section Start*@
+
+<section class="probootstrap-cover overflow-hidden relative" data-stellar-background-ratio="0.5" id="section-home">
+    <div class="overlay"></div>
+    <div class="container">
+
+        @*Row Start*@
+        <div class="row align-items-center">
+
+            <div class="col-md">
+                <h2 class="heading mb-2 display-4 font-light probootstrap-animate">Connect The World With SMS Site</h2>
+                <p class="lead mb-5 probootstrap-animate">
+            </div>
+
+            <div class="col-md probootstrap-animate">
+
+                @*Registration Form Start*@
+
+                @using (Html.BeginForm("Index", "Home", FormMethod.Post, new { @class = "probootstrap-form", id = "signupform" }))
+                {
+                    <div class="form-group">
+                        <!-- ROW 1 -->
+                        <div class="row mb-3">
+                            <div class="col-md">
+                                <div class="form-group">
+                                    <label for="id_label_single2">Username</label>
+                                    @Html.EditorFor(model => model.username, new { htmlAttributes = new { @class = "form-control", id = "", name = "", placeholder = "abc_xyz11" } })
+                                    @Html.ValidationMessageFor(model => model.username, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="col-md">
+                                <div class="form-group">
+                                    <label for="id_label_single">Email</label>
+
+                                    @Html.EditorFor(model => model.email, new { htmlAttributes = new { @class = "form-control ", id = "", name = "", placeholder = "abc@email.com" } })
+                                    @Html.ValidationMessageFor(model => model.email, "", new { @class = "text-danger" })
+                                </div>
+
+                            </div>
+                        </div>
+                        <!-- END row -->
+                        <!-- ROW 2 -->
+                        <div class="row mb-3">
+
+                            <div class="col-md">
+                                <div class="form-group">
+                                    <label for="id_label_single2">Phone No</label>
+                                    <div class="row">
+                                        <div class="col-md" style="display: flex;">
+                                            <input class="form-control w-50" value="+92" disabled />
+
+                                            @Html.EditorFor(model => model.phone_no, new { htmlAttributes = new { @class = "form-control ml-2", Type = "tel", maxlength = "10", placeholder = "300-0000000", id = "phone" } })
+
+                                        </div>
+
+                                    </div>
+                                    @Html.ValidationMessageFor(model => model.phone_no, "", new { @class = "text-danger" })
+
+                                </div>
+                            </div>
+                            <div class="col-md">
+                                <div class="form-group">
+                                    <label for="id_label_single">Name</label>
+                                    <input class="form-control" name="name" placeholder="Name" id="name" />
+                                    @if (Session["name.."] != null && Session["name.."].ToString() == "")
+                                    {
+                                        <span class="text-danger" id="validation_msgforname" style="font-size:15px">Name is required</span>
+                                        Session.Remove("name..");
+
+                                    }
+
+
+                                </div>
+                            </div>
+
+                        </div>
+                        <!-- END row -->
+                        <!-- ROW 3 -->
+                        <div class="row mb-3">
+                            <div class="col-md">
+                                <div class="form-group">
+
+                                    <label for="id_label_single">Password</label>
+                                    @Html.EditorFor(model => model.password, new { htmlAttributes = new { @class = "form-control", id = "paswrd", placeholder = "********", type = "password" } })
+                                    @Html.ValidationMessageFor(model => model.password, "", new { @class = "text-danger" })
+                                 
+                                </div>
+                            </div>
+                            <div class="col-md">
+                                <div class="form-group">
+                                    <label for="id_label_single">Confirm Password</label>
+                                    <input id="confirm_pswrd" placeholder="********" type="password" class="form-control" />
+                                    <span class="text-danger" id="validation_msg" style="font-size:15px; display:none">Confirm password is Incorrect!</span>
+
+                                </div>
+                            </div>
+                        </div>
+                        <!-- END row -->
+                        <!-- ROW 4 -->
+                        <div class="row mb-3">
+                            <div class="col-md">
+                                <input class="form-control bg-info" id="verification" style=" font-size: xx-large; text-align: center; text-decoration: line-through;" value="@Session["verification_code"]" disabled />
+
+                            </div>
+                            <div class="col-md">
+                                <input name="vf_code" class="form-control" placeholder="veification code" id="vf_code" />
+                            </div>
+
+                        </div>
+                        <div class="row mb-3">
+
+                            <div class="col-md">
+
+                                @*Registration Button*@
+
+                                <input type="button" onclick="checkingvalidity()" value="Signup" class="btn btn-primary btn-block">
+                            </div>
+                        </div>
+
+                    </div>
+                    <!-- END row -->
+                }
+
+                @*Registration Form End*@
+            </div>
+        </div>
+
+        @*Row End*@
+
+    </div>
+
+</section>
+
+@*Section End*@
+
+<script>
+    //Validation For Registration Form
+    function checkingvalidity() {
+
+        var name = document.getElementById("name").value
+        var confrim_pwsrd = document.getElementById("confirm_pswrd").value
+        var pwsrd = document.getElementById("paswrd").value
+        //if (name != "") {
+        if (confrim_pwsrd == pwsrd) {
+
+            document.getElementById("signupform").submit();
+        }
+        else {
+            document.getElementById("validation_msg").style.display = "block";
+        }
+        //}
+        //else {
+        //    document.getElementById("validation_msgforname").style.display = "block";
+        //}
+    }
+</script>
+<!-- END section -->
+@*clock start*@
+<div class="hero">
+    <div class="container-fluid">
+        <div class="clockk">
+            <span id="HRS">00</span>
+            <span>:</span>
+            <span id="MIN">00</span>
+            <span>:</span>
+            <span id="SEC">00</span>
+        </div>
+    </div>
+</div>
+@*clock end*@
+
+@*time script start*@
+<script>
+
+    let hrs = document.getElementById("HRS");
+    let min = document.getElementById("MIN");
+    let sec = document.getElementById("SEC");
+    setInterval(() => {
+
+        let currentime = new Date();
+        hrs.innerHTML = (currentime.getHours() < 10 ? "0" : "") + currentime.getHours();
+        min.innerHTML = (currentime.getMinutes() < 10 ? "0" : "") + currentime.getMinutes();
+        sec.innerHTML = (currentime.getSeconds() < 10 ? "0" : "") + currentime.getSeconds();
+    }, 1000)
+
+
+</script>
+@*time script end*@

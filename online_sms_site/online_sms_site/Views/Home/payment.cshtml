@@ -1,0 +1,87 @@
+﻿@model online_sms_site.Models.Services
+@{
+    ViewBag.Title = "payment";
+    Layout = "~/Views/Shared/_userlayout.cshtml";
+}
+
+<link rel="stylesheet" href="~/payment/tailwindcss-colors.css">
+<link rel="stylesheet" href="~/payment/paid.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+<!-- start: Payment -->
+<!--SECTION START-->
+<section class="payment-section mt-5">
+    <div class="container">
+        <div class="payment-wrapper">
+            <div class="payment-left">
+                <div class="payment-header">
+                    <div class="payment-header-icon"><i class="ri-flashlight-fill"></i></div>
+                    <div class="payment-header-title">Order Summary</div>
+                    <p class="payment-header-description">@Model.service_title</p>
+                </div>
+                <div class="payment-content">
+                    <div class="payment-body">
+                        <div class="payment-plan">
+                            <div class="payment-plan-type">Pro</div>
+                            <div class="payment-plan-info">
+                                <div class="payment-plan-info-name">Professional Plan</div>
+                                <div class="payment-plan-info-price">@Model.amount</div>
+                            </div>
+                            <a href="#" class="payment-plan-change">Change</a>
+                        </div>
+                        <div class="payment-summary">
+
+                            <div class="payment-summary-divider"></div>
+                            <div class="payment-summary-item payment-summary-total">
+                                <div class="payment-summary-name">Total amount</div>
+                                <div class="payment-summary-price">@Model.amount</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="payment-right">
+
+                @using (Html.BeginForm("creditcard", "Home", FormMethod.Post, new { @class = "payment-form" }))
+                {
+                    <h1 class="payment-title">Payment Details</h1>
+                    <input name="service_id" hidden value="@Model.Id" />
+                    <input name="service_amount" hidden value="@Model.amount" />
+                    <div class="payment-form-group">
+                        <input type="email" name="email" required placeholder=" " class="payment-form-control" id="email">
+                        <label for="email" class="payment-form-label payment-form-label-required">Email Address</label>
+                    </div>
+                    <div class="payment-form-group">
+                        <input type="text" name="name" required placeholder=" " class="payment-form-control" id="name">
+                        <label for="name" class="payment-form-label payment-form-label-required">Card Holder Name</label>
+                    </div>
+                    <div class="payment-form-group">
+                        <input type="text" maxlength="14"  name="card_no" required placeholder=" " class="payment-form-control"   id="card-number">
+                        <label for="card-number" class="payment-form-label payment-form-label-required">Card Number</label>
+                    </div>
+                    <div class="payment-form-group-flex">
+                        <div class="payment-form-group">
+                            <input type="date" name="ex_date" required placeholder=" " class="payment-form-control" id="expiry-date">
+                            <label for="expiry-date" class="payment-form-label payment-form-label-required">Expiry Date</label>
+                        </div>
+                        <div class="payment-form-group">
+                            <input type="text" maxlength="4" name="cvv" required placeholder=" " class="payment-form-control" id="cvv">
+                            <label for="cvv" class="payment-form-label payment-form-label-required">CVV</label>
+                        </div>
+                    </div>
+                    <button type="submit" class="payment-form-submit-button"><i class="ri-wallet-line"></i> Pay</button>}
+
+            </div>
+        </div>
+    </div>
+</section>
+<!--SECTION END-->
+
+
+
+<script>
+    $(document).ready(function () {
+    })
+</script>
+
+<!-- end: Payment -->

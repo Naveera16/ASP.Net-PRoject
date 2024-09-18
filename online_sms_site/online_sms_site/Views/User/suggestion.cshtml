@@ -1,0 +1,102 @@
+﻿@model IEnumerable<online_sms_site.Models.user_personal>
+
+@{
+    ViewBag.Title = "suggestion";
+    Layout = "~/Views/Shared/_friendlayout.cshtml";
+}
+@*<link rel="stylesheet" href="~/friend_css/style.css">*@
+
+@foreach (var item in Model)
+{
+    int check_id = item.user_id;
+    var checking_status = "none";
+    var status = "none";
+
+    foreach (var check in ViewBag.req2)
+    {
+        if (check.GetType().GetProperty("SenderId")?.GetValue(check, null) == item.user_id && check.GetType().GetProperty("Status")?.GetValue(check, null) == "Pending")
+        {
+            checking_status = "dontshow";
+
+
+        }
+        else if (check.GetType().GetProperty("SenderId")?.GetValue(check, null) == item.user_id && check.GetType().GetProperty("Status")?.GetValue(check, null) == "Accepted")
+        {
+            checking_status = "dontshow";
+
+        }
+    }
+    foreach (var data in ViewBag.req1)
+    {
+        if (data.GetType().GetProperty("ReceiverId")?.GetValue(data, null) == item.user_id && data.GetType().GetProperty("Status")?.GetValue(data, null) == "Pending")
+        {
+            status = "Pending";
+        }
+        else if (data.GetType().GetProperty("ReceiverId")?.GetValue(data, null) == item.user_id && data.GetType().GetProperty("Status")?.GetValue(data, null) == "Accepted")
+        {
+            status = "Accepted";
+
+        }
+    }
+    if (item.user_id != Convert.ToInt32(Session["user_id"]))
+    {
+        if (checking_status == "none" || checking_status != "dontshow")
+        {
+            if (status != "Accepted")
+            {
+                if (status == "Pending")
+                {
+                    <!--CARD FOR SUGGESTION END-->
+                    <div class="col-3 ml-5 border mb-3" style=" text-align: -webkit-center;">
+                        <div class="card text-center align-items-center p-2" style="width: 15rem; height: 20rem; border: none">
+                            <div class="top" style="height: 200px; width: 85%; ">
+                                <a style="text-decoration:none" class="w-75  h-75" href="@Url.Action("otherprofile", "User", new { id = item.user_id, status = "send_req"})">
+                                    <img src="@Url.Content(item.photo)" class="mt-2 card-img-top w-75" alt="...">
+                                    <h5 class="card-title mb-0 mt-2">@item.name</h5>
+                                </a>
+                            </div>
+                            <div class="card-body  mt-0 p-0 pb-2">
+
+                                <hr style="color:black" />
+
+
+                                @Html.ActionLink("Cancel", "cancel_req", "User", new { id = item.user_id }, new { @class = "btn btn-primary w-100" })
+
+
+
+                            </div>
+                        </div>
+                    </div>
+                    <!--CARD FOR SUGGESTION END-->
+                }
+                else
+                {
+                    <div class="col-3  ml-5 border mb-3" style=" text-align: -webkit-center;">
+                        <div class="card text-center align-items-center p-2" style="width: 15rem; height: 20rem; border: none">
+                            <div class="top" style="height: 200px; width: 85%; ">
+                                <a style="text-decoration:none" class="w-75" href="@Url.Action("otherprofile", "User", new { id = item.user_id, status = "unknown" })">
+                                    <img src="@Url.Content(item.photo)" class="mt-2 card-img-top w-75" alt="...">
+                                    <h5 class="card-title mb-0 mt-2">@item.name</h5>
+                                </a>
+                            </div>
+                            <div class="card-body  mt-0 p-0 pb-2">
+                                <hr style="color:black" />
+
+
+                                @Html.ActionLink("Add Friend", "addfriend", "User", new { id = item.user_id }, new { @class = "btn btn-primary w-100" })
+
+                            </div>
+                        </div>
+                    </div>
+                }
+
+
+            }
+
+        }
+
+    }
+
+}
+
+

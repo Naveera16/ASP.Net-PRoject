@@ -1,0 +1,216 @@
+﻿@model online_sms_site.Models.mainmodel
+
+@{
+    ViewBag.Title = "contact_List";
+    Layout = "~/Views/Shared/_friendlayout.cshtml";
+}
+@if (Session["contactdeleted"] != null)
+{
+    @Html.Raw(Session["contactdeleted"]);
+    Session.Remove("contactdeleted");
+}
+@{ int user_id = Convert.ToInt32(Session["user_id"]);}
+@if (Model.contactlist.Any(item => item.user == user_id))
+{<!--TABLE START-->
+    <table class="table">
+
+        <!--TABLE ROW START-->
+        <tr>
+            <th>
+                Name:
+            </th>
+            <th>
+                Contact Number
+            </th>
+            <th>
+                Actions
+            </th>
+
+        </tr>
+        <!--TABLE ROW END-->
+        @foreach (var item in Model.contactlist)
+        {
+
+            <!--TABLE ROW START-->
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.name)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.contact_number)
+                </td>
+                @*@{ var checking_number = item.contact_number.ToString();
+                    if (Model.combined_table2.Any(a => a.person.Any(contact => contact.Contact == item.contact_number)))
+                    {
+                            <td>
+                            </td>
+                    }; }*@
+
+                <td>
+                    <input value="@item.contact_number" hidden id="number_@item.Id" />
+                    <input value="@item.name" id="name_@item.Id" hidden />
+
+                    <button type="button" data-user-id="@item.Id" class="btn btn-primary edit"> Edit </button> |
+                    <button type="button" data-user-id="@item.Id" class="btn btn-danger delete"> Delete </button>
+                </td>
+            </tr>
+            <!--TABLE ROW END-->
+            <!--MODAL FOR DELETE LIST START-->
+            <div class="modal fade" id="delete_@item.Id" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Delete Contact!</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            Are You Sure? Want to Delete this contact?
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                            @Html.ActionLink("Delete", "Deletecontact", new { id = item.Id }, new { @class = "btn btn-danger" })
+
+
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+        }
+    </table>
+    <!--TABLE END-->
+ 
+}
+else
+{
+    <div class="w-100 text-center ">
+        <h1 class="text-muted">No Contacts</h1> <br />
+        <button type="button" data-bs-toggle="modal" data-bs-target="#addcontact" class="btn btn-outline-secondary w-25"><i class="ri-add-circle-fill"></i> Add Contact</button>
+
+    </div>
+}
+<!--MODAL FOR add new contat -->
+<div class="modal fade" id="addcontact" tabindex="-1" aria-labelledby="addcontactModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header" style=" padding: 2rem 2rem;">
+
+                @using (Html.BeginForm("addcontact", "User", FormMethod.Post, new { id = "addcontact_form" }))
+                {
+                    <h5 class="modal-title mb-3" id="exampleModalLabel"> <i class="ri-add-circle-fill"></i>  Add Contact</h5>
+
+                    <div class="row mb-3">
+                        <div class="mb-6">
+                            <label for="number" class="form-label">Phone Number </label>
+
+                            <div class="row">
+                                <div class="col-3">
+                                    <input class="form-control" value="+92" disabled />
+                                </div>
+                                <div class="col-9">
+                                    @Html.EditorFor(model => model.addcontact.contact_number, new { htmlAttributes = new { @class = "form-control mb-2", id = "contact_number", Required = "Required" , Type = "tel", maxlength = "10", minlength = "10" } })
+                                    @*@Html.ValidationMessageFor(model => model.addcontact.contact_number, "", new { @class = "text-danger" })*@
+
+                                </div>
+                            </div>
+                        </div>
+                        <br />
+                        <br />
+                        <div class="mb-6">
+                            <label for="name" class="form-label">Name </label>
+                            @Html.EditorFor(model => model.addcontact.name, new { htmlAttributes = new { @class = "form-control mb-2", id = "contact_name", Required = "Required" } })
+                            @*@Html.ValidationMessageFor(model => model.addcontact.name, "", new { @class = "text-danger" })*@
+
+                        </div>
+
+                    </div>
+
+                    <div class="modal-footer mt-3 mb-0">
+                        <button type="submit " class="btn btn-primary" id="addcontact"> <i class="ri-add-fill"></i>Add Contact</button>
+                    </div>
+                }
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<!--MODAL FOR DELETE Contact-->
+<div class="modal fade" id="editcontact" tabindex="-1" aria-labelledby="addcontactModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header" style=" padding: 2rem 2rem;">
+
+                @using (Html.BeginForm("editcontact", "User", FormMethod.Post))
+                {
+                    <h5 class="modal-title mb-3" id="exampleModalLabel"> <i class="ri-add-circle-fill"></i>  Edit Contact</h5>
+
+                    <div class="row mb-3">
+                        <div class="mb-6">
+                            <label for="number" class="form-label">Phone Number </label>
+                            @Html.EditorFor(model => model.addcontact.contact_number, new { htmlAttributes = new { @class = "form-control mb-2", id = "number_" } })
+
+                        </div>
+                        <br />
+                        <br />
+                        <div class="mb-6">
+                            <label for="name" class="form-label">Name </label>
+                            @Html.EditorFor(model => model.addcontact.name, new { htmlAttributes = new { @class = "form-control mb-2", id = "name_" } })
+                            <input name="id" hidden id="Id_" />
+                            <input name="page" hidden value="contact_list" />
+                        </div>
+
+                    </div>
+
+                    <div class="modal-footer mt-3 mb-0">
+
+                        <button type="submit" class="btn btn-primary"> <i class="ri-add-fill"></i>Save</button>
+
+                    </div>
+                }
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+
+
+<!--AJAX FOR DELETE-->
+
+
+<script>
+    $(document).ready(function () {
+        $(".delete").click(function () {
+
+            var Id = $(this).data("user-id");
+            $(`#delete_${Id}`).modal("show");
+        })
+        $(".edit").click(function () {
+            var Id = $(this).data("user-id");
+            var number = $(`#number_${Id}`).val()
+            var name = $(`#name_${Id}`).val()
+            $("#number_").val(number);
+            $("#name_").val(name);
+            $("#Id_").val(Id);
+            $("#editcontact").modal("show")
+
+
+        })
+
+    })
+</script>
+
+

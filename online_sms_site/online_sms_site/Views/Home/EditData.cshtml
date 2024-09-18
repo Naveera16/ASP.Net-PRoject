@@ -1,0 +1,276 @@
+﻿@model online_sms_site.Models.mainmodel
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>EditData</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <link rel='stylesheet' type='text/css' media='screen' href="~/assets/css/edit_page.css" />
+</head>
+<body>
+    <div class="container-xl px-4 mt-4">
+        <!-- Account page navigation-->
+
+        <hr class="mt-0 mb-4">
+        @*Edit Profile Data Form Start*@
+
+        @using (@Html.BeginForm("EditData", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+
+            <div class="row">
+                <div class="col-xl-4">
+                    <!-- Profile picture card-->
+                    <div class="card mb-4 mb-xl-0">
+                        <div class="card-header" style="background-color: #ced3d9; color: white;">Profile Picture</div>
+                        <div class="card-body text-center">
+                            <!-- Profile picture image-->
+                            <img alt="Selected Profile Picture" class="mb-2  h-25  img-fluid" style="width: 200px" ; id="selectedImage" src="@Url.Content(Model.model2.photo)">
+                            <br />
+                            <input name="file" type="file" id="profilePictureInput" style="display: none" onchange="displaySelectedImage(this)" />
+
+                            <button class="btn btn-primary" type="button" onclick="selectProfilePicture()">Upload new image</button>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-8">
+                    <!-- Account details card-->
+                    <div class="card mb-4">
+                        <div class="card-header" style="background-color: #ced3d9; color: white;">Account Details</div>
+                        <div class="card-body">
+
+                            @Html.HiddenFor(model => model.model1.Id)
+                            @Html.HiddenFor(model => model.model1.username)
+                            @Html.HiddenFor(model => model.model2.S_No)
+                            @Html.HiddenFor(model => model.model2.user_id)
+                            @Html.HiddenFor(model => model.model3.S_No)
+                            @Html.HiddenFor(model => model.model3.Id)
+
+                            @*Password*@
+                            @Html.HiddenFor(model => model.model1.password, new { htmlAttributes = new { @class = "form-control" } })
+
+
+                            <!-- Form Group (user required data)-->
+                            <div class="mb-3">
+                                <div class="row gx-3 mb-3">
+                                    <div class="col-md-6">
+                                        <!--User name which can not be change-->
+                                        <div class="small font-italic text-muted mb-1">Username can not be update</div>
+                                        <input class="form-control text-center" value="@Model.model1.username" disabled />
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="small mb-1" for="inputUsername">Email</label>
+                                        @* Email *@
+                                        @Html.EditorFor(model => model.model1.email, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.model1.email, "", new { @class = "text-danger" })
+
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <!-- Form Row-->
+
+                            <hr />
+                            <h4>Personal Details</h4>
+                            <div class="row gx-3 mb-3">
+                                <!-- Form Group (Full name)-->
+                                <div class="col-md-6">
+                                    <label class="small mb-1" for="inputFirstName">Full Name</label>
+                                    @Html.EditorFor(model => model.model2.name, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.model2.name, "", new { @class = "text-danger" })
+
+                                </div>
+                                <!-- Form Group (Gender)-->
+                                <div class="col-md-6">
+                                    <label class="small mb-1" for="inputUsername">Phone Number</label>
+                                    @*  <input class="form-control" id="inputUsername" type="text" placeholder="Enter your username" value="username">*@
+                                    @Html.EditorFor(model => model.model1.phone_no, new { htmlAttributes = new { @class = "form-control", type = "number" } })
+                                    @Html.ValidationMessageFor(model => model.model1.phone_no, "", new { @class = "text-danger" })
+
+
+
+                                </div>
+                            </div>
+                            <!-- Form Row        -->
+                            <div class="row gx-3 mb-3">
+                                <!-- Form Group (DOB)-->
+                                <div class="col-md-6">
+                                    <label class="small mb-1" for="inputFirstName">Date Of Birth</label>
+                                    @Html.EditorFor(model => model.model2.DOB, new { htmlAttributes = new { @class = "form-control", Type = "date" } })
+                                    @Html.ValidationMessageFor(model => model.model2.DOB, "", new { @class = "text-danger" })
+
+                                </div>
+                                <!-- Form Group (Address)-->
+                                <div class="col-md-6">
+                                    <label class="small mb-1" for="inputLastName">Address</label>
+                                    @Html.EditorFor(model => model.model2.address, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.model2.address, "", new { @class = "text-danger" })
+
+                                </div>
+                            </div>
+                            <!-- Form Row        -->
+                            <div class="row gx-3 mb-3">
+                                <!-- Form Group (Sports)-->
+                                <div class="col-md-6">
+                                    <label class="small mb-1" for="inputOrgName">Sports</label>
+                                    @Html.EditorFor(model => model.model2.sports, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.model2.sports, "", new { @class = "text-danger" })
+
+                                </div>
+                                <!-- Form Group (Hobbies)-->
+                                <div class="col-md-6">
+                                    <label class="small mb-1" for="inputLocation">Hoobies</label>
+                                    @Html.EditorFor(model => model.model2.hobbies, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.model2.hobbies, "", new { @class = "text-danger" })
+
+                                </div>
+                            </div>
+
+                            <!-- Form Row-->
+                            <div class="row gx-3 mb-3">
+                                <!-- Form Group (Likes)-->
+                                <div class="col-md-6">
+                                    <label class="small mb-1" for="inputPhone">Likes</label>
+                                    @Html.EditorFor(model => model.model2.likes, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.model2.likes, "", new { @class = "text-danger" })
+
+                                </div>
+                                <!-- Form Group (Dislikes)-->
+                                <div class="col-md-6">
+                                    <label class="small mb-1" for="inputBirthday">Dislikes</label>
+                                    @Html.EditorFor(model => model.model2.dislikes, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.model2.dislikes, "", new { @class = "text-danger" })
+
+                                </div>
+                            </div>
+                            <!-- Form Row-->
+                            <div class="row gx-3 mb-3">
+                                <!-- Form Group (Cuisines)-->
+                                <div class="col-md-6">
+                                    <label class="small mb-1" for="inputPhone">Cuisines</label>
+                                    @Html.EditorFor(model => model.model2.cuisines, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.model2.cuisines, "", new { @class = "text-danger" })
+
+                                </div>
+                                <!-- Form Group (Status)-->
+                                <div class="col-md-6">
+                                    <div class="row">
+                                        <div class="col-8">
+                                            <label class="small mb-1" for="inputLastName">Status</label>
+                                            <br />
+                                            @Html.DropDownListFor(model => model.model2.status, new SelectList(new[] { "Single", "Married", "Relation Ship", "Engaged", "Divorced", "Seprated", "Widowed" })
+                                          , "Select Status", new { @class = "form-control border border-2   dropdown" })
+                                        </div>
+                                        <div class="col-4">
+                                            <!-- Form Group (Gender)-->
+                                            <label class="small mb-1" for="inputLastName">Gender</label>
+                                            <br />
+                                            @Html.RadioButtonFor(model => model.model2.gender, "Male")
+                                            <span> Male &nbsp;   </span>  <br />
+                                            @Html.RadioButtonFor(model => model.model2.gender, "Female")
+                                            <span> Female &nbsp; </span>
+                                            @Html.ValidationMessageFor(model => model.model2.gender, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                            </div>
+
+                            <hr />
+                            <h4>Professional Details</h4>
+                            <div class="row gx-3 mb-3">
+                                <!-- Form Group (School)-->
+                                <div class="col-md-6">
+                                    <label class="small mb-1" for="inputFirstName">School</label>
+                                    @Html.EditorFor(model => model.model3.school, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.model3.school, "", new { @class = "text-danger" })
+
+                                </div>
+                                <!-- Form Group (College)-->
+                                <div class="col-md-6">
+                                    <label class="small mb-1" for="inputLastName">College</label>
+                                    @Html.EditorFor(model => model.model3.college, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.model3.college, "", new { @class = "text-danger" })
+
+                                </div>
+                            </div>
+                            <div class="row gx-3 mb-3">
+                                <!-- Form Group (Qualification)-->
+                                <div class="col-md-6">
+                                    <label class="small mb-1" for="inputFirstName">Qualification</label>
+                                    @Html.EditorFor(model => model.model3.qualification, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.model3.qualification, "", new { @class = "text-danger" })
+
+                                </div>
+                                <!-- Form Group (Work Status)-->
+                                <div class="col-md-6">
+                                    <label class="small mb-1" for="inputLastName">Work Status</label>
+                                    @Html.EditorFor(model => model.model3.work_status, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.model3.work_status, "", new { @class = "text-danger" })
+
+                                </div>
+                            </div>
+                            <div class="row gx-3 mb-3">
+                                <!-- Form Group (Organization)-->
+                                <div class="col-md-6">
+                                    <label class="small mb-1" for="inputFirstName">Organization</label>
+                                    @Html.EditorFor(model => model.model3.organization, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.model3.organization, "", new { @class = "text-danger" })
+
+                                </div>
+                                <!-- Form Group (Designation-->
+                                <div class="col-md-6">
+                                    <label class="small mb-1" for="inputLastName">Designation</label>
+                                    @Html.EditorFor(model => model.model3.designation, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.model3.designation, "", new { @class = "text-danger" })
+
+                                </div>
+                            </div>
+                            <!-- Save changes button-->
+                            <button class="btn btn-primary" type="submit">Save changes</button>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+
+        @*Edit Profile Data Form End*@
+    </div>
+
+    <!-- Script Start-->
+    <script>
+        // Function to trigger file input click
+        function selectProfilePicture() {
+            document.getElementById('profilePictureInput').click();
+        }
+
+        // Function to display the selected image
+        function displaySelectedImage(input) {
+            const selectedImage = document.getElementById('selectedImage');
+
+            // Check if a file is selected
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+
+                reader.onload = function (e) {
+                    selectedImage.src = e.target.result;
+                    selectedImage.style.display = 'inline';
+                };
+
+                // Read the selected file as a data URL
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+    </script>
+    <!-- Scriot End-->
+</body>
+</html>
